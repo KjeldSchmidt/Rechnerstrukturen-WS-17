@@ -58,10 +58,47 @@ long convert_vector(bit_vector *b) {
  */
 bit_vector convert_number(long number) {
 
-  //  Erzeuge Rueckgabe-Struktur.
+  //  Initilize struct to return
   bit_vector b;
 
+  // The smallest number encodeable by one's complement is (long)INT_MIN + 1. So the minimum value of long has to be rejected.
+  // Desired values for output have been copied from the tests.
+  if ( number == (long) INT_MIN ) {
+    b.length = 0;
+    b.bits = NULL;
+    return b;
+  }
+
+  // In all other cases, we can construct a valid, 32-bit vector. Attempt to allocate memory and set it to 0.
+  b.length = 32;
+  if ( (b.bits = (unsigned char*) malloc( sizeof(unsigned char) * 32) ) == NULL ) {
+    perror("Speicheranforderung fehlgeschlagen.\n");
+  }
   memset(b.bits, FALSE, b.length);
+
+  // First, check the parity. If the number is negative, the first bit has to be 0.
+  if ( number < 0 ) {
+    b.bits[0] = 1;
+  }
+  // One's complement has the nice property that flipping all bits gives the negative of the number. 
+  // So we work with the absolute value and then flip each bit based on bits[0]. labs is just abs for long.
+  number = labs(number); 
+
+
+  // At each bit position, we compare to the value of that bit position. Since we know that longs here are 32 bit, we hardcode that information.
+  // bitValue starts as 2^30. If you wonder why its not 31 or 32, just think about it. It'll come to you.
+  long bitValue = (long) INT_MAX/2 + 1;
+
+  for ( int i = 1; i < 32; ++i ) {
+    if ( number >= bitValue ) {      // if the number is greater than the value of this bit, we need this bit to be set.
+      number -= bitValue;            // remaining number to encode
+      b.bits[i] = !b.bits[0];        // flip based on wether the number is positive or negative
+    } else {
+      b.bits[i] = b.bits[0];
+    }
+
+    bitValue = bitValue / 2;         // the next bit is only worth half as much.
+  }
 
   return b;
 }

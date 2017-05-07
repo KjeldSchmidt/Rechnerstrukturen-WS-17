@@ -16,7 +16,7 @@ int test_to_one_complement() {
 
   int tests_ok = TRUE;
 
-    //  Bereite Vergleichs-Vektoren vor.
+  //  Bereite Vergleichs-Vektoren vor.
   bit_vector b;
   b.length = 32;  
   if ((b.bits = (unsigned char*)malloc(sizeof(unsigned char) * b.length)) == NULL) {
