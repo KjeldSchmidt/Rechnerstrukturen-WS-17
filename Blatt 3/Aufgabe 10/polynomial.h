@@ -29,6 +29,14 @@ int is_valid_polynomial(polynomial *p) {
   return ((p != NULL) && (p->coefficients != NULL));
 }
 
+void free_polynomial( polynomial *p ) {
+  if ( p != NULL ) {
+    if ( p->coefficients != NULL ) free( p-> coefficients );
+    free( p );
+  } 
+}
+
+
 /**
  *  Gib ein Polynom auf dem Bildschirm aus.
  *
@@ -46,6 +54,60 @@ void print_polynomial(polynomial *p) {
   else {
     printf(ANSI_COLOR_RED "Ungueltiges Polynom uebergeben.\n" ANSI_COLOR_RESET);
   }
+}
+
+int find_largest_exponent(polynomial *p) {
+  for ( int i = p->degree; i > 0; --i ) {
+    if ( p->coefficients[i] != 0 ) return i;
+  }
+  return 0;
+}
+
+polynomial *subtract_polynomial( polynomial *p0, polynomial *p1 ) {
+  if ( !is_valid_polynomial(p0) || !is_valid_polynomial(p1) ) {
+    return NULL;
+  }
+
+  polynomial difference;
+  int possible_degree = ( p0->degree > p1->degree ) ? p0->degree : p1->degree;
+
+  if ( (difference.coefficients = (float*) malloc( sizeof(float) * (possible_degree+1)) ) == NULL ) {
+    printf(ANSI_COLOR_MAGENTA "Speicheranforderung fehlgeschlagen.\n" ANSI_COLOR_RESET);
+    free_polynomial( &difference );  //  Speicherfreigabe.
+    return NULL;
+  }
+
+  for ( int i = 0; i <= possible_degree; ++i ) {
+    difference.coefficients[i] = p0->coefficients[i] - p1->coefficients[i];
+    if ( difference.coefficients[i] != 0 ) {
+      difference.degree = i;
+    }
+  }
+
+  return &difference;
+}
+
+polynomial *multiply_polynomial( polynomial *p0, polynomial *p1 ) {
+  if ( !is_valid_polynomial(p0) || !is_valid_polynomial(p1) ) {
+    return NULL;
+  }
+
+  polynomial product;
+  product.degree = p0->degree * p1->degree;
+
+  if ((product.coefficients = ( float* ) malloc( sizeof(float) * (product.degree+1))) == NULL) {
+    printf(ANSI_COLOR_MAGENTA "Speicheranforderung fehlgeschlagen.\n" ANSI_COLOR_RESET);
+    free_polynomial( &product );  //  Speicherfreigabe.
+    return NULL;
+  }
+
+  for ( int i = 0; i <= p0->degree; ++i ) {
+    for ( int j = 0; i <= p1->degree; ++i ) {
+      product.coefficients[ i + j ] += p0->coefficients[i] * p1->coefficients[j];
+    }
+  }
+
+  return &product;
 }
 
 /**

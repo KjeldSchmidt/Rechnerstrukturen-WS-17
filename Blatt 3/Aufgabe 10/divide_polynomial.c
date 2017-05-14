@@ -49,8 +49,7 @@ division_result divide_polynomial(polynomial *p0, polynomial *p1) {
   polynomial *remainder_denominator = NULL;
 
   //  Berechne den Grad des Ergebnispolynoms.
-
-  int degree = 0;  // Diese Berechnung ergaenzen.
+  int degree = abs(p0->degree - p1->degree);
     
   //  Erzeuge einen Quotienten mit Grad mindestens 0,
   //  auch, wenn nur ein Rest berechnet werden muss.
@@ -73,16 +72,17 @@ division_result divide_polynomial(polynomial *p0, polynomial *p1) {
     Ggfs. hier Programmtext ergaenzen.
   */
 
+  polynomial *remaining;
   //  Iteriere passend..
-  /* Schleifenkonstrukt */ {
+  for( int i = p1->degree; i >= 0; --i ) {
     
     //  "Du suchst die groessten Exponenten aus den beiden Polynomen..."
-
-    /*
-      Hier Programmtext ergaenzen.
-    */
+    unsigned short exponentP0 = find_largest_exponent( p0 );
+    unsigned short exponentP1 = find_largest_exponent( p1 );
 
     //  "...dividierst das miteinander..."
+
+
 
     /*
       Hier Programmtext ergaenzen.
@@ -95,6 +95,7 @@ division_result divide_polynomial(polynomial *p0, polynomial *p1) {
     */
 
     //  "...denn wenn man jetzt noch subtrahiert,..."
+    remainder_numerator = subtract_polynomial( p0, p1 );
     
     /*
       Hier Programmtext ergaenzen.
@@ -152,9 +153,12 @@ division_result divide_polynomial(polynomial *p0, polynomial *p1) {
   //  Setze die Komponenten der Rueckgabestruktur.
   //  Bei einem vorherigen Ruecksprung war das Ergebnis
   //  als ungueltig zu betrachten.
+
   result.quotient              = quotient;
   result.remainder_numerator   = remainder_numerator;
   result.remainder_denominator = remainder_denominator;
+
+  
 
   return result;
 }
