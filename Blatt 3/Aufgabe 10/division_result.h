@@ -77,11 +77,13 @@ void free_division_result(division_result *result) {
  */
 int compare_division_result(division_result *d0, division_result *d1) {
 
-  /*
-    Hier Programmtext ergaenzen.
-  */
-  
-  return FALSE;
+  if ( (d0 == NULL) && (d1 == NULL) ) return TRUE;
+  if ( (d0 == NULL) || (d1 == NULL) ) return FALSE;
+  if ( !compare_polynomial( d0->quotient, d1->quotient ) ) return FALSE;
+  if ( !compare_polynomial( d0->remainder_numerator, d1->remainder_numerator ) ) return FALSE;
+  if ( !compare_polynomial( d0->remainder_denominator, d1->remainder_denominator ) ) return FALSE;
+
+  return TRUE;
   
 }
 
