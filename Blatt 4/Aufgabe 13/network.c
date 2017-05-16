@@ -118,8 +118,12 @@ uint32_t getBroadcast(uint32_t address, int prefix){
  *  @return
  *         maximale Anzahl an eindeutig adressierbaren Host innerhalb des Subnetzes
  */
-uint32_t getNumberOfHost(int prefix){
-    return (2 << (31 - prefix)) - 3;
+uint32_t getNumberOfHost(int prefix) {
+    if ( prefix == 0 ) return 4294967294;
+    if ( prefix == 31 ) return 2;
+    if ( prefix == 32 ) return 1;
+    uint32_t numberOfHosts = (1 << (32 - prefix)) - 2;
+    return numberOfHosts;
 }
 
 /**
@@ -135,8 +139,8 @@ uint32_t getNumberOfHost(int prefix){
  *         erste gueltige Hostadresse im zugehoerigen Subnetz im uint32_t Format
  */
 uint32_t getFirst(uint32_t address, int prefix){
-    //Bitte implementieren
-    return 0;
+    if ( prefix >= 31 ) return address;
+    return getNetwork( address, prefix ) + 1;
 }
 
 
@@ -153,8 +157,9 @@ uint32_t getFirst(uint32_t address, int prefix){
  *         letzte gueltige Hostadresse im zugehoerigen Subnetz im uint32_t Format
  */
 uint32_t getLast(uint32_t address, int prefix){
-    //Bitte implementieren
-    return 0;
+    if ( prefix == 32 ) return address;
+    if ( prefix == 31 ) return getBroadcast( address, prefix);
+    return getBroadcast( address, prefix) - 1;
 }
 
 /**
