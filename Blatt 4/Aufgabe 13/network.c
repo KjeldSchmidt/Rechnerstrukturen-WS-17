@@ -178,7 +178,8 @@ uint32_t getLast(uint32_t address, int prefix){
  */
 int doIntersect(uint32_t ip1, int prefix1, uint32_t ip2, int prefix2)
 {
-    //Bitte implementieren
+    if ( getBroadcast( ip1, prefix1) >= getNetwork( ip2, prefix2 ) && getNetwork( ip1, prefix1 ) <= getBroadcast( ip2, prefix2 ) ) return 1;
+    if ( getBroadcast( ip2, prefix2) >= getNetwork( ip1, prefix1 ) && getNetwork( ip2, prefix2 ) <= getBroadcast( ip1, prefix1 ) ) return 1;
     return 0;
 }
 
