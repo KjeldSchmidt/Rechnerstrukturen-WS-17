@@ -59,11 +59,11 @@ ipv4 covertFromAddress(uint32_t converted){
  *         Octaldarstellung der zugehoerigen Subnetz-Adresse im uint32_t Format
  */
 uint32_t getSubnetmaskFromPrefix(int prefix){
-  uint32_t returnPrefix = 0;
+  uint32_t octalPrefix = 0;
 	for ( int i = 0; i < prefix; ++i ) {
-    returnPrefix += 1 << 31 - i;
+    octalPrefix += 1 << 31 - i;
   }
-	return returnPrefix;
+	return octalPrefix;
 }
 
 /**
@@ -79,8 +79,14 @@ uint32_t getSubnetmaskFromPrefix(int prefix){
  *         Octaldarstellung der zugehoerigen Network-Adresse im uint32_t Format
  */
 uint32_t getNetwork(uint32_t address, int prefix){
-    //Bitte implementieren
+  if ( prefix == 0 ) {
     return 0;
+  }
+  uint32_t network = address;
+  network = (network >> (32 - prefix));
+  network = network << (32-prefix);
+  printf("%u\t%d\t%u\n", address, prefix, network);
+  return network;
 }
 
 /**
@@ -110,8 +116,7 @@ uint32_t getBroadcast(uint32_t address, int prefix){
  *         maximale Anzahl an eindeutig adressierbaren Host innerhalb des Subnetzes
  */
 uint32_t getNumberOfHost(int prefix){
-    //Bitte implementieren
-    return 0;
+    return (2 << (31 - prefix)) - 3;
 }
 
 /**
