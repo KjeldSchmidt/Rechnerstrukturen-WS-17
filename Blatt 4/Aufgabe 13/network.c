@@ -85,7 +85,6 @@ uint32_t getNetwork(uint32_t address, int prefix){
   uint32_t network = address;
   network = (network >> (32 - prefix));
   network = network << (32-prefix);
-  printf("%u\t%d\t%u\n", address, prefix, network);
   return network;
 }
 
@@ -102,8 +101,12 @@ uint32_t getNetwork(uint32_t address, int prefix){
  *         Octaldarstellung der zugehoerigen Broadcast-Adresse im uint32_t Format
  */
 uint32_t getBroadcast(uint32_t address, int prefix){
-    //Bitte implementieren
-    return 0;
+    uint32_t broadcast = getNetwork( address, prefix );
+    for ( int i = 0; i < 32 - prefix; ++i ) {
+      broadcast += 1 << i;
+    }
+
+    return broadcast;
 }
 
 /**
