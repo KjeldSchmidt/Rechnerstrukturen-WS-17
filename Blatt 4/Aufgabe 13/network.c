@@ -70,43 +70,32 @@ uint32_t getSubnetmaskFromPrefix(int prefix){
  *  Erzeugt zu einer IPv4-Adresse und einem gegebenen Präfix
  *  die zugehörige IPv4-Network-Adresse als uint32_t.
  *  @param address
- *         IP-Adresse innerhalb des Subnetzes zu der die Netzwerk-Adresse 
+ *         IP-Adresse innerhalb des Subnetzes zu der die Netzwerk-Adresse
  *         bestimmt werden soll. Vom Typ uint32_t.
- * 
+ *
  *  @param prefix
  *         Anzahl der Host-Bits in der IP-Adresse. Muss im Bereich 0<=x<=32 sein.
  *  @return
  *         Octaldarstellung der zugehoerigen Network-Adresse im uint32_t Format
  */
 uint32_t getNetwork(uint32_t address, int prefix){
-  if ( prefix == 0 ) {
-    return 0;
-  }
-  uint32_t network = address;
-  network = (network >> (32 - prefix));
-  network = network << (32-prefix);
-  return network;
+  return address & getSubnetmaskFromPrefix( prefix );
 }
 
 /**
  *  Erzeugt zu einer IPv4-Adresse und einem gegebenen Präfix
  *  die zugehörige IPv4-Broadcast-Adresse als uint32_t.
  *  @param address
- *         IP-Adresse innerhalb des Subnetzes zu der die Broadcast-Adresse 
+ *         IP-Adresse innerhalb des Subnetzes zu der die Broadcast-Adresse
  *         bestimmt werden soll. Vom Typ uint32_t.
- * 
+ *
  *  @param prefix
  *         Anzahl der Host-Bits in der IP-Adresse. Muss im Bereich 0<=x<=32 sein.
  *  @return
  *         Octaldarstellung der zugehoerigen Broadcast-Adresse im uint32_t Format
  */
 uint32_t getBroadcast(uint32_t address, int prefix){
-    uint32_t broadcast = getNetwork( address, prefix );
-    for ( int i = 0; i < 32 - prefix; ++i ) {
-      broadcast += 1 << i;
-    }
-
-    return broadcast;
+    return address | ~getSubnetmaskFromPrefix( prefix );
 }
 
 /**
@@ -130,9 +119,9 @@ uint32_t getNumberOfHost(int prefix) {
  *  Erzeugt zu einer IPv4-Adresse und einem gegebenen Präfix
  *  die erste gültige IPv4-Host-Adresse als uint32_t.
  *  @param address
- *         IP-Adresse innerhalb des Subnetzes zu der die erste Host-Adresse 
+ *         IP-Adresse innerhalb des Subnetzes zu der die erste Host-Adresse
  *         bestimmt werden soll. Vom Typ uint32_t.
- * 
+ *
  *  @param prefix
  *         Anzahl der Host-Bits in der IP-Adresse. Muss im Bereich 0<=x<=32 sein.
  *  @return
@@ -148,22 +137,21 @@ uint32_t getFirst(uint32_t address, int prefix){
  *  Erzeugt zu einer IPv4-Adresse und einem gegebenen Präfix
  *  die letzte gültige IPv4-Host-Adresse als uint32_t.
  *  @param address
- *         IP-Adresse innerhalb des Subnetzes zu der die letzte Host-Adresse 
+ *         IP-Adresse innerhalb des Subnetzes zu der die letzte Host-Adresse
  *         bestimmt werden soll. Vom Typ uint32_t.
- * 
+ *
  *  @param prefix
  *         Anzahl der Host-Bits in der IP-Adresse. Muss im Bereich 0<=x<=32 sein.
  *  @return
  *         letzte gueltige Hostadresse im zugehoerigen Subnetz im uint32_t Format
  */
 uint32_t getLast(uint32_t address, int prefix){
-    if ( prefix == 32 ) return address;
-    if ( prefix == 31 ) return getBroadcast( address, prefix);
-    return getBroadcast( address, prefix) - 1;
+    if ( prefix >= 31 ) return getBroadcast( address, prefix );
+    return getBroadcast( address, prefix ) - 1;
 }
 
 /**
- *  Berechnet ob sich zwei Subnetze überlappen. Die Subnetze werden aus den 
+ *  Berechnet ob sich zwei Subnetze überlappen. Die Subnetze werden aus den
  *  übergebenen IPv4-Adressen mittels jeweiligen Präfixe bestimmt.
  *  @param ip1
  *         IP-Adresse innerhalb des ersten Subnetzes
@@ -178,13 +166,13 @@ uint32_t getLast(uint32_t address, int prefix){
  */
 int doIntersect(uint32_t ip1, int prefix1, uint32_t ip2, int prefix2)
 {
-    if ( getBroadcast( ip1, prefix1) >= getNetwork( ip2, prefix2 ) && getNetwork( ip1, prefix1 ) <= getBroadcast( ip2, prefix2 ) ) return 1;
-    if ( getBroadcast( ip2, prefix2) >= getNetwork( ip1, prefix1 ) && getNetwork( ip2, prefix2 ) <= getBroadcast( ip1, prefix1 ) ) return 1;
+    if ( getBroadcast( ip1, prefix1 ) >= getNetwork( ip2, prefix2 ) && getNetwork( ip1, prefix1 ) <= getBroadcast( ip2, prefix2 ) ) return 1;
+    if ( getBroadcast( ip2, prefix2 ) >= getNetwork( ip1, prefix1 ) && getNetwork( ip2, prefix2 ) <= getBroadcast( ip1, prefix1 ) ) return 1;
     return 0;
 }
 
 #include "tests_network.h"
 
 int main(int argc, char **argv) {
-   return run_tests();  
+   return run_tests();
 }
