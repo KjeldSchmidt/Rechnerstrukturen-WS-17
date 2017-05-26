@@ -13,6 +13,43 @@
 
 //Sie duerfen sich Hilfsfunktionen implementieren
 
+int getCharacteristik( bit_vector *b, int k ) {
+  int characteristik = 0;
+  for (int i = 0; i < k; ++i ) {
+    characteristik += b->bits[i + 1] << k - i;
+  }
+  return characteristik;
+}
+
+int getMantissa( bit_vector *b, int n ) {
+  int mantissa = 0;
+  for (int i = 0; i < n; ++i ) {
+    mantissa += b->bits[i + 1] << n - i;
+  }
+  return mantissa;
+}
+
+int isNaN ( bit_vector *b, int k, int n ) {
+  char characteristikAllOnes = getCharacteristik( b, k ) == ( 1 << k+1 ) - 1;
+  char mantissaNotZero = getMantissa( b, n ) != 0;
+  return characteristikAllOnes && mantissaNotZero;
+}
+
+int compareNormalized( bit_vector *b1, bit_vector *b2, int k, int n ) {
+  if ( getCharacteristik(b1, k ) > getCharacteristik( b2, k ) ) {
+    return 1;
+  } else if ( getCharacteristik(b1, k ) < getCharacteristik( b2, k ) ) {
+    return 0;
+  } else if ( getCharacteristik(b1, k ) == getCharacteristik( b2, k ) ) {
+    if ( getMantissa( b1, n ) < getMantissa( b2, n ) ) {
+      return 1;
+    } else if ( getMantissa( b1, n ) > getMantissa( b2, n ) ) {
+      return 0;
+    }
+  }
+  return 0;
+}
+
 /**
  *  Die Funktion gibt an, ob der erste der beiden uebergebenen Bitvektoren kleiner als der andere ist
  *  Die Vektoren muessen beide im 1,k,n Format angelehnt an die IEEE-754 vorliegen.
@@ -34,38 +71,12 @@
  *         -1, sonst
  */
 
-int getCharacteristik( bit_vector *b, int k ) {
-  int characteristik = 0;
-  for (int i = 0; i < k; ++i ) {
-    characteristik += b->bits[i + 1] << k - i;
-  }
-  return characteristik;
-}
-
-int getMantissa( bit_vector *b, int n ) {
-  int mantissa = 0;
-  for (int i = 0; i < n; ++i ) {
-    mantissa += b->bits[i + 1] << n - i;
-  }
-  return mantissa;
-}
-
-int compareNormalized( bit_vector *b1, bit_vector *b2, int k, int n ) {
-  if ( getCharacteristik(b1, k ) > getCharacteristik( b2, k ) ) {
-    return 1;
-  } else if ( getCharacteristik(b1, k ) < getCharacteristik( b2, k ) ) {
-    return 0;
-  } else if ( getCharacteristik(b1, k ) == getCharacteristik( b2, k ) ) {
-    if ( getMantissa( b1, n ) < getMantissa( b2, n ) ) {
-      return 1;
-    } else if ( getMantissa( b1, n ) > getMantissa( b2, n ) ) {
-      return 0;
-    }
-  }
-  return 0;
-}
-
 int lessThanIEEE(bit_vector *b1, bit_vector *b2, int k, int n, int* result) {
+  // Comparision with NaN always gives FALSE.
+  if ( isNaN( b1, k, n ) || isNaN( b2, k, n ) ) {
+    *result == 0;
+    return -1;
+  }
   // As a first step, the sign bit is an easy and absolute decider.
   if ( b1->bits[0] == 1 && b2->bits[0] == 1 ) {
     *result = 1;
