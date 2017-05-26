@@ -33,9 +33,48 @@
  *         0, falls alle Eingaben gueltig und es keinen Fehler gab
  *         -1, sonst
  */
+
+int getCharacteristik( bit_vector *b, int k ) {
+  int characteristik = 0;
+  for (int i = 0; i < k; ++i ) {
+    characteristik += b->bits[i + 1] << k - i;
+  }
+  return characteristik;
+}
+
+int getMantissa( bit_vector *b, int n ) {
+  int mantissa = 0;
+  for (int i = 0; i < n; ++i ) {
+    mantissa += b->bits[i + 1] << n - i;
+  }
+  return mantissa;
+}
+
+int compareNormalized( bit_vector *b1, bit_vector *b2, int k, int n ) {
+  if ( getCharacteristik(b1, k ) > getCharacteristik( b2, k ) ) {
+    return 1;
+  } else if ( getCharacteristik(b1, k ) < getCharacteristik( b2, k ) ) {
+    return 0;
+  } else if ( getCharacteristik(b1, k ) == getCharacteristik( b2, k ) ) {
+    if ( getMantissa( b1, n ) < getMantissa( b2, n ) ) {
+      return 1;
+    } else if ( getMantissa( b1, n ) > getMantissa( b2, n ) ) {
+      return 0;
+    }
+  }
+  return 0;
+}
+
 int lessThanIEEE(bit_vector *b1, bit_vector *b2, int k, int n, int* result) {
-   //Hier bitte implementieren
-   return OK;
+  // As a first step, the sign bit is an easy and absolute decider.
+  if ( b1->bits[0] == 1 && b2->bits[0] == 1 ) {
+    *result = 1;
+  } else if ( b1->bits[0] == 0 && b2->bits[0] == 1 ) {
+    *result = 0;
+  }
+  // If that doesn't work, we can check if the Vectors are normalized and, if yes, compare by characteristik.
+  *result = compareNormalized( b1, b2, k, n );
+  return 0;
 }
 
 
@@ -44,5 +83,5 @@ int lessThanIEEE(bit_vector *b1, bit_vector *b2, int k, int n, int* result) {
 int main(int argc, char **argv) {
 
   return run_tests();
-  
+
 }
