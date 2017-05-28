@@ -128,28 +128,40 @@ int test_ieee() {
   error = lessThanIEEE(&b7,&b8,8,23,&res);//inf zu -inf
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b6,&b8,8,23,&res);//NaN zu -inf
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b8,&b6,8,23,&res);//-inf zu NaN
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b6,&b6,8,23,&res);//NaN zu NaN
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b6,&b3,8,23,&res);//NaN zu -0
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b6,&b4,8,23,&res);//NaN zu +0
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b6,&b1,8,23,&res);//NaN zu -1.3
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b6,&b5,8,23,&res);//NaN zu 1.2
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b3,&b6,8,23,&res);//-0 zu NaN
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b4,&b6,8,23,&res);//+0 zu NaN
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b1,&b6,8,23,&res);//-1.3 zu NaN
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b5,&b6,8,23,&res);//1.2 zu NaN
+  //printf("N");
   tests_ok &= show_progress(!error && res == 0);
   error = lessThanIEEE(&b5,&b9,8,23,&res);//1.2 zu NaN
+  //printf("N");
   tests_ok &= show_progress(error);
   error = lessThanIEEE(&b9,&b10,3,3,&res);
   tests_ok &= show_progress(!error && res == 0);
@@ -157,8 +169,10 @@ int test_ieee() {
   tests_ok &= show_progress(!error && res == 1);
   error = lessThanIEEE(&b10,&b9,2,4,&res);
   tests_ok &= show_progress(!error && res == 0);//zu nan
+  //printf("N");
   error = lessThanIEEE(&b9,&b10,2,4,&res);
   tests_ok &= show_progress(!error && res == 0);//zu nan
+  //printf("N");
   error = lessThanIEEE(&b9,&b10,0,6,&res);
   tests_ok &= show_progress(error);//k=0
   error = lessThanIEEE(&b9,&b10,1,6,&res);
