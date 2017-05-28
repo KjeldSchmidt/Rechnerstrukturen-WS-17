@@ -1,0 +1,93 @@
+\documentclass{article}
+\begin{document}
+\begin{flushleft}
+\textbf{A15}
+\end{flushleft}
+
+\begin{tabular}[]{l c }
+	(0) &  $abcdef\overline{g}$ \\
+	(1) & $+\overline{a}b\overline{cdefg}$\\
+	(2) & $+ab\overline{c}de\overline{f}g$\\
+	(3) & $+abcd\overline{ef}g$\\
+	(4) & $+\overline{a}bc\overline{de}fg$\\
+	(5) & $+a\overline{b}cd\overline{e}fg$\\
+	(6) & $+a\overline{b}cdefg$\\
+	(7) & $+abc\overline{defg}$\\
+	(8) & $+abcdefg$\\
+	(9) & $+\overline{abcd}e\overline{fg}$\\
+\end{tabular}
+\linebreak
+\begin{flushleft}
+	Diese DNF beschreibt genau die gueltigen Zustaende der Anzeige, die nur Ziffern erlaubt. \linebreak
+\end{flushleft}
+
+\newcommand{\NANDNEG}[1]{#1 - #1}
+\newcommand{\NANDAND}[2]{ (#1 - #2) - (#1 - #2) }
+\newcommand{\NANDOR}[2]{(#1 - #1) - (#2 - #2)}
+\newcommand{\NEG}[1]{\overline{#1}}
+\newcommand{\AND}[2]{#1\cdot #2}
+\newcommand{\OR}[2]{#1 + #2}
+\pagebreak
+\begin{flushleft}
+\textbf{A16a}
+
+Sei NAND(X, Y) = X-Y \linebreak
+Hier nicht gezeigt sind Wahrheitstafeln die beweisen: \linebreak
+$X-X = \bar{X}$ = NANDNEG \linebreak
+$(X-Y)-(X-Y) = X*Y$ = NANDAND \linebreak
+$\bar{X} - \bar{Y}$ = X+Y = NANDOR \linebreak
+
+
+So zeigt sich \linebreak
+\end{flushleft}
+$\OR
+	{\AND{x_1}{\NEG{x_2}}}
+	{\NEG{
+		\OR
+			{\AND{x_2}{x_3}}
+			{\OR
+				{\NEG{x_1}}
+				{x_3}
+			}
+		}
+	}
+$
+ = 
+$\NANDOR
+{\NANDAND{x_1}{\NANDNEG{x_2}}}
+{\NANDNEG{
+		\NANDOR
+		{\NANDAND{x_2}{x_3}}
+		{\NANDOR
+			{\NANDNEG{x_1}}
+			{x_3}
+		}
+	}
+}
+$
+
+\begin{flushleft}
+\textbf{A16b} \linebreak
+Zum zeigen von Funktionaler Vollstaendigkeit von $\Rightarrow$ und der konstanten Nullfunktionen leiten wir aus diesen beiden die als funktional vollstaendig bekannte Funktionsmenge UND, ODER, NEGATION (*, +, $\bar{ }$) ab. \linebreak
+Unter verwendung von Wahrheitstafeln laesst sich leicht zeigen:
+
+$\bar{ }(x) = (x \Rightarrow 0 )$\linebreak
+$+(x, y) = \bar{x} \Rightarrow y$\linebreak
+$*(x, y) = \overline{(x \Rightarrow \bar{y})}$\linebreak
+
+\end{flushleft}
+\pagebreak
+\begin{flushleft}
+\textbf{A17} \linebreak
+
+Da die Eingabe als Binaerzahl zu interpretieren ist, können wir feststellen, dass die hoechste darstellbare Zahl 31 ist. Somit gibt es keinen Fall, in dem die Eingabe durch 7 \textit{und} 5 teilbar ist (kgV(7, 5) = 35). Somit ist:
+
+$f^{-1} = \{00101, 01010, 01111, 10100, 11001, 11110, 01110, 10101, 11100 \} = $
+$f^{-1} = \{ 5, 10, 15, 20, 25, 30, 7, 14, 21 \}$
+
+Der exakte Funktionsterm von $f$ ist die DNF die sich bildet, wenn man die individuellen Binaerdarstellungen mit ODER verknuepft, die Binaerziffern mit UND und jede 0 negiert. Dies wird hier nicht explizit umgesetzt.
+
+\end{flushleft}
+
+
+\end{document}
