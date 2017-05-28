@@ -91,7 +91,7 @@ int lessThanIEEE(bit_vector *b1, bit_vector *b2, int k, int n, int* result) {
 
   // Comparision with NaN always gives FALSE.
   if ( isNaN( b1, k, n ) || isNaN( b2, k, n ) ) {
-    *result == 0;
+    *result = 0;
     return 0;
   }
 
