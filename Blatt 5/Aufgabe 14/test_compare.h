@@ -58,7 +58,7 @@ int to_bit_vector_32(float f, bit_vector* b){
  *          TRUE genau dann, wenn kein Test fehlschlaegt.
  */
 int test_ieee() {
-  printf("[Teste Compare-Funktion] ");
+  printf("[Teste Compare-Funktion]\n");
 
   
   
@@ -181,11 +181,11 @@ int test_ieee() {
   tests_ok &= show_progress(!error && res == 1);
   error = lessThanIEEE(&b12,&b11,2,4,&res);//+ denormal zu -denormal
   tests_ok &= show_progress(!error && res == 0);
-   error = lessThanIEEE(&b9,&b11,2,4,&res);//neg zu -denormal
+  error = lessThanIEEE(&b9,&b11,2,4,&res);//neg zu -denormal
   tests_ok &= show_progress(!error && res == 1);
   
   
-  
+
     
   //  Ausgabe des Gesamtergebnis
   print_test_result(tests_ok);

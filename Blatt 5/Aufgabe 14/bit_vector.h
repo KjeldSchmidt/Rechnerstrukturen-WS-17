@@ -65,4 +65,11 @@ int compare(bit_vector *b0, bit_vector *b1) {
   
 }
 
+void printVector( bit_vector *b ) {
+  for ( int i = 0; i < b->length; ++i ) {
+    printf("%d", b->bits[i] );
+  }
+  printf("\n");
+}
+
 #endif

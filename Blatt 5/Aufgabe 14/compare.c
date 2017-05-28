@@ -36,18 +36,24 @@ int isNaN ( bit_vector *b, int k, int n ) {
 }
 
 int compareNormalized( bit_vector *b1, bit_vector *b2, int k, int n ) {
-  if ( getCharacteristik(b1, k ) > getCharacteristik( b2, k ) ) {
+  //printVector( b1 );
+  //printVector( b2 );
+  if ( getCharacteristik( b1, k ) > getCharacteristik( b2, k ) ) {
     return 1;
-  } else if ( getCharacteristik(b1, k ) < getCharacteristik( b2, k ) ) {
+  } else if ( getCharacteristik( b1, k ) < getCharacteristik( b2, k ) ) {
     return 0;
-  } else if ( getCharacteristik(b1, k ) == getCharacteristik( b2, k ) ) {
+  } else if ( getCharacteristik( b1, k ) == getCharacteristik( b2, k ) ) {
     if ( getMantissa( b1, n, k ) < getMantissa( b2, n, k ) ) {
-      return 1;
+      return !b1->bits[0];
     } else if ( getMantissa( b1, n, k ) > getMantissa( b2, n, k ) ) {
-      return 0;
+      return b1->bits[0];;
     }
   }
   return 0;
+}
+
+int bothAreZero( bit_vector *b1, bit_vector *b2, int k, int n ) {
+  return ( getCharacteristik( b1, k ) == 0 && getMantissa( b1, n, k ) == 0 && getCharacteristik( b2, k ) == 0 && getMantissa( b2, n, k ) == 0 );
 }
 
 /**
@@ -72,20 +78,37 @@ int compareNormalized( bit_vector *b1, bit_vector *b2, int k, int n ) {
  */
 
 int lessThanIEEE(bit_vector *b1, bit_vector *b2, int k, int n, int* result) {
+  // checking sensible parameters
+
+  if ( 
+    k == 0 ||
+    n == 0 ||
+    b1->length != b2->length ||
+    b1->length != k + n + 1
+  ) {
+    return -1;
+  }
+
   // Comparision with NaN always gives FALSE.
   if ( isNaN( b1, k, n ) || isNaN( b2, k, n ) ) {
-    printf("!");
     *result == 0;
     return 0;
   }
-  // As a first step, the sign bit is an easy and absolute decider.
-  if ( b1->bits[0] == 1 && b2->bits[0] == 1 ) {
+
+  // before the next step, we have to remove the edge case of -0.0f vs 0.0f
+  if ( bothAreZero( b1, b2, k, n ) ) {
+    *result = 0;
+  } 
+  // As the next step, the sign bit is an easy and absolute decider.
+  else if ( b1->bits[0] == 1 && b2->bits[0] == 0 ) { 
     *result = 1;
   } else if ( b1->bits[0] == 0 && b2->bits[0] == 1 ) {
     *result = 0;
-  }
+  } 
   // If that doesn't work, we can check if the Vectors are normalized and, if yes, compare by characteristik.
-  *result = compareNormalized( b1, b2, k, n );
+  else {
+    *result = compareNormalized( b1, b2, k, n );
+  }
   return 0;
 }
 
@@ -93,7 +116,5 @@ int lessThanIEEE(bit_vector *b1, bit_vector *b2, int k, int n, int* result) {
 #include "tests_compare.h"
 
 int main(int argc, char **argv) {
-
   return run_tests();
-
 }
