@@ -18,9 +18,33 @@ void printNumber( char showBitField ) {
 
 }
 
+void leftpadNumber( char *string, char minLength, char *out) {
+	char currentActualLength = 0;
+	char offset;
+	char paddedString[ minLength ];
+	memset( paddedString, 48, minLength );
+
+	while ( string[ currentActualLength ] != 0 ) {
+		++currentActualLength;
+	}
+	
+	offset = minLength - currentActualLength;
+
+	for ( char i = 0; i < currentActualLength; ++i ) {
+		paddedString[ i + offset ] = string[ i ];
+	}
+
+	for ( char i = 0; i < minLength; ++i ) {
+		out[i] = paddedString[i];
+	}
+}
+
 void showNumber(unsigned int number) {
-  char numberAsString[4];
+  char numberAsString[5];
+  char paddedNumber[5];
   sprintf( numberAsString, "%d", number );
+  leftpadNumber( numberAsString, 4, paddedNumber );
+  printf("%s\n", paddedNumber);
 }
 
 int main(int argc, char **argv) {
