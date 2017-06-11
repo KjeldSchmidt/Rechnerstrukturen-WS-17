@@ -1,0 +1,6 @@
+--help
+document.aux
+document.log
+*.syntec.gz
+*.syntecx.gz
+document.synctex.gz
