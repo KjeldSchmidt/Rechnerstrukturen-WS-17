@@ -10,7 +10,7 @@
 
 void printNumber( char bitField ) {
 	if ( bitField >> 7 == 1 ) {
-		printf("This bitfield can't represent an actual number. You screwed up.\n");
+		printf("This bitfield (%d) can't represent an actual number. You screwed up.\n", bitField );
 		return;
 	}
 
@@ -24,14 +24,14 @@ void printNumber( char bitField ) {
 }
 
 char getBitField( char numberAsAscii ) {
-	if ( numberAsAscii == 48 ) return 126;
-	if ( numberAsAscii == 49 ) return 48;
-	if ( numberAsAscii == 50 ) return 109;
-	if ( numberAsAscii == 51 ) return 121;
-	if ( numberAsAscii == 52 ) return 51;
-	if ( numberAsAscii == 53 ) return 91;
-	if ( numberAsAscii == 54 ) return 95;
-	if ( numberAsAscii == 55 ) return 112;
+	if ( numberAsAscii == 48 ) return 119;
+	if ( numberAsAscii == 49 ) return 10;
+	if ( numberAsAscii == 50 ) return 93;
+	if ( numberAsAscii == 51 ) return 91;
+	if ( numberAsAscii == 52 ) return 58;
+	if ( numberAsAscii == 53 ) return 107;
+	if ( numberAsAscii == 54 ) return 111;
+	if ( numberAsAscii == 55 ) return 82;
 	if ( numberAsAscii == 56 ) return 127;
 	if ( numberAsAscii == 57 ) return 123;
 }
