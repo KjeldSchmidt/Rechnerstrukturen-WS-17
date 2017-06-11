@@ -9,9 +9,8 @@
 */
 
 void showNumber(unsigned int number) {
-  /*
-    Hier Programmtext ergaenzen.
-  */
+  char numberAsString[4];
+  sprintf( numberAsString, "%d", number );
 }
 
 int main(int argc, char **argv) {
