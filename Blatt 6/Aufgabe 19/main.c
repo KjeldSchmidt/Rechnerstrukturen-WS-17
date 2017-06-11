@@ -74,7 +74,7 @@ void printNumber( char *bitField ) {
 
 char getBitField( char numberAsAscii ) {
 	if ( numberAsAscii == 48 ) return 119;
-	if ( numberAsAscii == 49 ) return 10;
+	if ( numberAsAscii == 49 ) return 18;
 	if ( numberAsAscii == 50 ) return 93;
 	if ( numberAsAscii == 51 ) return 91;
 	if ( numberAsAscii == 52 ) return 58;
