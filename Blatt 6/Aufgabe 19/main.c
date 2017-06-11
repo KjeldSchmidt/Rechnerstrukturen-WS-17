@@ -18,6 +18,19 @@ void printNumber( char showBitField ) {
 
 }
 
+char getBitField( char numberAsAscii ) {
+	if ( numberAsAscii == 48 ) return 126;
+	if ( numberAsAscii == 49 ) return 48;
+	if ( numberAsAscii == 50 ) return 109;
+	if ( numberAsAscii == 51 ) return 121;
+	if ( numberAsAscii == 52 ) return 51;
+	if ( numberAsAscii == 53 ) return 91;
+	if ( numberAsAscii == 54 ) return 95;
+	if ( numberAsAscii == 55 ) return 112;
+	if ( numberAsAscii == 56 ) return 127;
+	if ( numberAsAscii == 57 ) return 123;
+}
+
 void leftpadNumber( char *string, char minLength, char *out) {
 	char currentActualLength = 0;
 	char offset;
@@ -40,15 +53,20 @@ void leftpadNumber( char *string, char minLength, char *out) {
 }
 
 void showNumber(unsigned int number) {
-  char numberAsString[5];
-  char paddedNumber[5];
-  sprintf( numberAsString, "%d", number );
-  leftpadNumber( numberAsString, 4, paddedNumber );
-  printf("%s\n", paddedNumber);
+	char numberAsString[5];
+	char paddedNumber[5];
+	sprintf( numberAsString, "%d", number );
+	leftpadNumber( numberAsString, 4, paddedNumber );
+
+	for ( char i = 0; i < 4; ++i ) {
+		printNumber( getBitField( paddedNumber[i] ) );
+	}
+
+	printf("%s\n", paddedNumber);
 }
 
 int main(int argc, char **argv) {
-  showNumber(123);
-  showNumber(4567);
-  showNumber(8910);
+	showNumber(123);
+	showNumber(4567);
+	showNumber(8910);
 }
