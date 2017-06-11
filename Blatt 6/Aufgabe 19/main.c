@@ -8,13 +8,18 @@
   Sie Ihren Programmtext vernuenftig. Danke.
 */
 
-void printNumber( char showBitField ) {
-	if ( showBitField >> 7 == 1 ) {
+void printNumber( char bitField ) {
+	if ( bitField >> 7 == 1 ) {
 		printf("This bitfield can't represent an actual number. You screwed up.\n");
 		return;
 	}
 
-
+	for ( char i = 6; i >= 0; --i ) {
+		if ( bitField >> i & 1 ) {
+			printf("activate position %c\n", (char) 65 + i ) ;
+		}
+	}
+	printf("\n");
 
 }
 
