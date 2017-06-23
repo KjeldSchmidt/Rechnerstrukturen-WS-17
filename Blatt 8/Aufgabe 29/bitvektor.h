@@ -30,9 +30,8 @@ private:
    * @return
    *        true, falls die Vektoren die selbe Laenge besitzen
    */
-
+   bool checkSizes(const Bitvektor& other) const;
 public:
-  bool checkSizes(const Bitvektor& other) const;
   /**
    * Konstruktor für einen Bitvektor der Laenge size
    *
@@ -146,6 +145,8 @@ public:
    * Gibt den Vektor auf der Standardausgabe in der Form MSB,...,.LSB aus.
    */
   void printOnConsole() const;
+
+  static void checkSizesTest();
 
 };
 

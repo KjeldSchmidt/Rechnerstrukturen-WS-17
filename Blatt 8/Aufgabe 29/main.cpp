@@ -16,7 +16,7 @@ bool Bitvektor::checkSizes( const Bitvektor& other ) const {
 }
 
 Bitvektor Bitvektor::calculateAnd( const Bitvektor& other ) const {
-  if ( this->getSize() != other.getSize() ) return Bitvektor(0);
+  if ( !this->checkSizes( other ) ) return Bitvektor(0);
   Bitvektor result( this->getSize() );
   for ( int i = 0; i < this->getSize(); ++i ) {
     result.setBit( i, this->getBit( i ) & other.getBit( i ) );
@@ -26,7 +26,7 @@ Bitvektor Bitvektor::calculateAnd( const Bitvektor& other ) const {
 }
 
 Bitvektor Bitvektor::calculateOr( const Bitvektor& other ) const {
-  if ( this->getSize() != other.getSize() ) return Bitvektor(0);
+  if ( !this->checkSizes( other ) ) return Bitvektor(0);
   Bitvektor result( this->getSize() );
   for ( int i = 0; i < this->getSize(); ++i ) {
     result.setBit( i, this->getBit( i ) | other.getBit( i ) );
@@ -36,7 +36,7 @@ Bitvektor Bitvektor::calculateOr( const Bitvektor& other ) const {
 }
 
 Bitvektor Bitvektor::calculateXor( const Bitvektor& other ) const {
-  if ( this->getSize() != other.getSize() ) return Bitvektor(0);
+  if ( !this->checkSizes( other ) ) return Bitvektor(0);
   Bitvektor result( this->getSize() );
   for ( int i = 0; i < this->getSize(); ++i ) {
     result.setBit( i, this->getBit( i ) != other.getBit( i ) );

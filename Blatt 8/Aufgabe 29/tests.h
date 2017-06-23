@@ -1,7 +1,7 @@
 #include "bitvektor.h"
 
 
-void sizeTest() {
+void Bitvektor::checkSizesTest() {
   std::cout << "sizeTest" << std::endl;
   Bitvektor zeroLengthVektor( 0 );
   Bitvektor vektor2( 10 );
@@ -278,7 +278,7 @@ void printOnConsoleTest() {
 }
 
 void runTests() {
-  sizeTest();
+  Bitvektor::checkSizesTest();
   setAndGetTest();
   allZeroTest();
   equalsTest();
