@@ -139,6 +139,144 @@ void calculateNotTest() {
   std::cout << std::endl << std::endl;
 }
 
+void calculateAndTest() {
+  std::cout << "calculateAndTest" << std::endl;
+  Bitvektor zeroLengthVektor( 0 );
+  Bitvektor vektor1( 10 );
+  for ( int i = 0; i < vektor1.getSize(); ++i ) {
+    vektor1.setBit( i, 0 );
+  }
+  vektor1.setBit( 1, 1 );
+  Bitvektor vektor2( 10 );
+  for ( int i = 0; i < vektor2.getSize(); ++i ) {
+    vektor2.setBit( i, 1 );
+  }
+  vektor2.setBit( 1, 0 );
+  Bitvektor compareVector( 10 );
+
+
+
+  Bitvektor result(0);
+
+  result = zeroLengthVektor.calculateAnd( zeroLengthVektor );
+  std::cout << ( result.equals( zeroLengthVektor ) );
+  result = vektor1.calculateAnd( vektor2 );
+  std::cout << ( result.equals( compareVector ) );
+
+  vektor1.setBit( 0, 1 );
+  compareVector.setBit( 0, 1 );
+
+  result = vektor2.calculateAnd( vektor1 );
+  std::cout << ( result.equals( compareVector ) );
+
+  std::cout << std::endl << std::endl;
+}
+
+void calculateOrTest() {
+  std::cout << "calculateOrTest" << std::endl;
+  Bitvektor zeroLengthVektor( 0 );
+  Bitvektor vektor1( 10 );
+  for ( int i = 0; i < vektor1.getSize(); ++i ) {
+    vektor1.setBit( i, 0 );
+  }
+  vektor1.setBit( 1, 1 );
+  Bitvektor vektor2( 10 );
+  for ( int i = 0; i < vektor2.getSize(); ++i ) {
+    vektor2.setBit( i, 1 );
+  }
+  vektor2.setBit( 1, 0 );
+  Bitvektor compareVector( 10 );
+  for ( int i = 0; i < compareVector.getSize(); ++i ) {
+    compareVector.setBit( i, 1 );
+  }
+
+
+
+  Bitvektor result(0);
+
+  result = zeroLengthVektor.calculateOr( zeroLengthVektor );
+  std::cout << ( result.equals( zeroLengthVektor ) );
+  result = vektor1.calculateOr( vektor2 );
+  std::cout << ( result.equals( compareVector ) );
+
+  vektor2.setBit( 0, 0 );
+  compareVector.setBit( 0, 0 );
+
+  result = vektor2.calculateOr( vektor1 );
+  std::cout << ( result.equals( compareVector ) );
+
+  std::cout << std::endl << std::endl;
+}
+
+void calculateXorTest() {
+  std::cout << "calculateXorTest" << std::endl;
+  Bitvektor zeroLengthVektor( 0 );
+  Bitvektor vektor1( 10 );
+  for ( int i = 0; i < vektor1.getSize(); ++i ) {
+    vektor1.setBit( i, 0 );
+  }
+  vektor1.setBit( 1, 1 );
+  Bitvektor vektor2( 10 );
+  for ( int i = 0; i < vektor2.getSize(); ++i ) {
+    vektor2.setBit( i, 1 );
+  }
+  vektor2.setBit( 1, 0 );
+  Bitvektor compareVector( 10 );
+  for ( int i = 0; i < compareVector.getSize(); ++i ) {
+    compareVector.setBit( i, 1 );
+  }
+
+
+
+  Bitvektor result(0);
+
+  result = zeroLengthVektor.calculateXor( zeroLengthVektor );
+  std::cout << ( result.equals( zeroLengthVektor ) );
+  result = vektor1.calculateXor( vektor2 );
+  std::cout << ( result.equals( compareVector ) );
+
+  vektor2.setBit( 1, 1 );
+  compareVector.setBit( 1, 0 );
+
+  result = vektor2.calculateXor( vektor1 );
+  std::cout << ( result.equals( compareVector ) );
+
+  std::cout << std::endl << std::endl;
+}
+
+void printOnConsoleTest() {
+  std::cout << "print'Test'" << std::endl;
+  Bitvektor zeroLengthVektor( 0 );
+  Bitvektor vektor1( 10 );
+  for ( int i = 0; i < vektor1.getSize(); ++i ) {
+    vektor1.setBit( i, 0 );
+  }
+  vektor1.setBit( 1, 1 );
+  Bitvektor vektor2( 10 );
+  for ( int i = 0; i < vektor2.getSize(); ++i ) {
+    vektor2.setBit( i, 1 );
+  }
+  vektor2.setBit( 1, 0 );
+  Bitvektor compareVector( 10 );
+  for ( int i = 0; i < compareVector.getSize(); ++i ) {
+    compareVector.setBit( i, 1 );
+  }
+
+  Bitvektor vektor3(7);
+  vektor3.setBit( 3, 1 );
+
+  std::cout << "" << "\t is the desired representation, actual:" << std::endl;
+  zeroLengthVektor.printOnConsole();
+  std::cout << "0000000010" << "\t is the desired representation, actual:" << std::endl;
+  vektor1.printOnConsole();
+  std::cout << "1111111101" << "\t is the desired representation, actual:" << std::endl;
+  vektor2.printOnConsole();
+  std::cout << "0001000" << "\t is the desired representation, actual:" << std::endl;
+  vektor3.printOnConsole();
+  std::cout << "1111111111" << "\t is the desired representation, actual:" << std::endl;
+  compareVector.printOnConsole();
+}
+
 void runTests() {
   sizeTest();
   setAndGetTest();
@@ -146,4 +284,8 @@ void runTests() {
   equalsTest();
   getSizeTest();
   calculateNotTest();
+  calculateAndTest();
+  calculateOrTest();
+  calculateXorTest();
+  printOnConsoleTest();
 }
