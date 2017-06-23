@@ -48,7 +48,7 @@ Bitvektor Bitvektor::calculateXor( const Bitvektor& other ) const {
 Bitvektor Bitvektor::calculateNot() const {
   Bitvektor result( this->getSize() );
   for ( int i = 0; i < this->getSize(); ++i ) {
-    result.setBit( i, ~this->getBit( i ) );
+    result.setBit( i, !this->getBit( i ) );
   }
 
   return result;

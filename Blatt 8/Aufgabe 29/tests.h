@@ -94,9 +94,56 @@ void equalsTest() {
   std::cout << std::endl << std::endl;
 }
 
+void getSizeTest() {
+  std::cout << "sizeTest" << std::endl;
+  Bitvektor zeroLengthVektor( 0 );
+  Bitvektor vektor0( 10 );
+  Bitvektor vektor1( 11 );
+
+  int result = false;
+
+  result = zeroLengthVektor.getSize();
+  std::cout << ( result == 0 );
+  result = vektor0.getSize();
+  std::cout << ( result == 10 );
+  result = vektor1.getSize();
+  std::cout << ( result == 11 );
+
+
+  std::cout << std::endl << std::endl;
+}
+
+void calculateNotTest() {
+  std::cout << "calculateNotTest" << std::endl;
+  Bitvektor zeroLengthVektor( 0 );
+  Bitvektor vektor1( 10 );
+  for ( int i = 0; i < vektor1.getSize(); ++i ) {
+    vektor1.setBit( i, 0 );
+  }
+  vektor1.setBit( 1, 1 );
+  Bitvektor vektor2( 10 );
+  for ( int i = 0; i < vektor2.getSize(); ++i ) {
+    vektor2.setBit( i, 1 );
+  }
+  vektor2.setBit( 1, 0 );
+
+  Bitvektor result(0);
+
+  result = zeroLengthVektor.calculateNot();
+  std::cout << ( result.equals( zeroLengthVektor ) );
+  result = vektor1.calculateNot();
+  std::cout << ( result.equals( vektor2 ) );
+  result = vektor2.calculateNot();
+  std::cout << ( result.equals( vektor1 ) );
+
+  std::cout << std::endl << std::endl;
+}
+
 void runTests() {
   sizeTest();
   setAndGetTest();
   allZeroTest();
   equalsTest();
+  getSizeTest();
+  calculateNotTest();
 }
