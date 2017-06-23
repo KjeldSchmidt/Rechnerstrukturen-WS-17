@@ -96,5 +96,7 @@ bool Bitvektor::equals(const Bitvektor& other) const {
 }
 
 void Bitvektor::printOnConsole() const {
-
+  for ( int i = this->getSize(); i >= 0; --i ) {
+    std::cout << this->getBit( i );
+  }
 }
