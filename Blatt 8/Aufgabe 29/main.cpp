@@ -27,30 +27,30 @@ Bitvektor Bitvektor::calculateXor( const Bitvektor& other ) const {
 
 }
 
-Bitvektor Bitvektor::calculateNot() {
+Bitvektor Bitvektor::calculateNot() const {
 
 }
 
-size_t getSize() const {
-  
+size_t Bitvektor::getSize() const {
+  return this->length;
 }
 
-bool getBit(size_t position) const {
-  
+bool Bitvektor::getBit(size_t position) const {
+
 }
 
-void setBit(size_t position, bool value) {
-  
+void Bitvektor::setBit(size_t position, bool value) {
+
 }
 
-bool allZero() const {
-  
+bool Bitvektor::allZero() const {
+
 }
 
-bool equals(const Bitvektor& other) const {
-  
+bool Bitvektor::equals(const Bitvektor& other) const {
+
 }
 
-void printOnConsole() const {
-  
+void Bitvektor::printOnConsole() const {
+
 }
