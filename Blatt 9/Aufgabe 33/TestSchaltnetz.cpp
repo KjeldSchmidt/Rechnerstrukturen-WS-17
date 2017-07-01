@@ -6,6 +6,8 @@
 
     int main() {
 
+    Schaltnetz meinNetz = *(new Schaltnetz());
+
 	/*
 	  Erzeuge einen OR-Baustein.
 	  Erzeuge einen AND-Baustein.
