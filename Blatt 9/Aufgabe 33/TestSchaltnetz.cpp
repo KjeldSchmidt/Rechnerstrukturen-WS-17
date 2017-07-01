@@ -8,15 +8,15 @@
 
     Schaltnetz meinNetz = *(new Schaltnetz());
 
-	/*
-	  Erzeuge einen OR-Baustein.
-	  Erzeuge einen AND-Baustein.
-	  Verbinde den x-Eingang des OR-Bausteins mit dem Ausgang des AND-Bausteins.
-	  Verbinde den y-Eingang des OR-Bausteins mit dem y-Eingang des Schaltnetzes.
-	  Verbinde den x-Eingang des AND-Bausteins mit dem x-Eingang des Schaltnetzes.
-	  Verbinde den y-Eingang des AND-Bausteins mit dem y-Eingang des Schaltnetzes.
-	  Verbinde des Ausgang des Schaltnetzes mit dem Ausgang des OR-Bausteins.
-	*/
+	
+	//Erzeuge einen OR-Baustein.
+	//Erzeuge einen AND-Baustein.
+	//Verbinde den x-Eingang des OR-Bausteins mit dem Ausgang des AND-Bausteins.
+	//Verbinde den y-Eingang des OR-Bausteins mit dem y-Eingang des Schaltnetzes.
+	//Verbinde den x-Eingang des AND-Bausteins mit dem x-Eingang des Schaltnetzes.
+	//Verbinde den y-Eingang des AND-Bausteins mit dem y-Eingang des Schaltnetzes.
+	//Verbinde des Ausgang des Schaltnetzes mit dem Ausgang des OR-Bausteins.
+	
 	
 
 	std::cout << "(true ,true ) -> " << meinNetz.eval(true,true) << 
