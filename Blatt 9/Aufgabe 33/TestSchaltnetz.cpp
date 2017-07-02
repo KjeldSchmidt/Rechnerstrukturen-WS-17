@@ -1,17 +1,20 @@
-#include "AndBaustein.h"
-#include "OrBaustein.h"
-#include "NotBaustein.h"
-#include "Schaltnetz.h"	
+#include "AndBaustein.hpp"
+#include "OrBaustein.hpp"
+#include "NotBaustein.hpp"
+#include "Schaltnetz.hpp"
 #include <iostream>
 
-    int main() {
+int main() {
 
     Schaltnetz meinNetz = *(new Schaltnetz());
 
 	
 	//Erzeuge einen OR-Baustein.
+	std::shared_ptr<OrBaustein> orGate( new OrBaustein() );
 	//Erzeuge einen AND-Baustein.
+	std::shared_ptr<AndBaustein> andGate( new AndBaustein() );
 	//Verbinde den x-Eingang des OR-Bausteins mit dem Ausgang des AND-Bausteins.
+	orGate->setInput(0, andGate );
 	//Verbinde den y-Eingang des OR-Bausteins mit dem y-Eingang des Schaltnetzes.
 	//Verbinde den x-Eingang des AND-Bausteins mit dem x-Eingang des Schaltnetzes.
 	//Verbinde den y-Eingang des AND-Bausteins mit dem y-Eingang des Schaltnetzes.

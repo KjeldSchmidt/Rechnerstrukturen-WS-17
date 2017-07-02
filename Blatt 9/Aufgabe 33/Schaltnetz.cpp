@@ -1,4 +1,4 @@
-#include "Schaltnetz.h"
+#include "Schaltnetz.hpp"
 
 Schaltnetz::Schaltnetz() {
 

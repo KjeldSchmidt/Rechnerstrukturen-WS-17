@@ -36,4 +36,5 @@ class Schaltbaustein {
 	 */
 	virtual std::shared_ptr<Schaltbaustein> getInput(size_t number) =0;
 };
+
 #endif
