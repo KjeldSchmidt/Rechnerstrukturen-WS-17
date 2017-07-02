@@ -1,5 +1,9 @@
 #include "AndBaustein.hpp"
 #include <iostream>
+#include <stdexcept>
+
+// AndBaustein und OrBaustein haben manche Gemeinsamkeiten
+// Aber bei weitem nicht hinreichende um eine "Zwischenklasse", von der And und Or, nicht aber Not, erben, zu entwickeln.
 
 //Expliziter Konstruktor freut den Compiler
 AndBaustein::AndBaustein() {
@@ -20,12 +24,20 @@ size_t AndBaustein::getInputSize() const {
     return this->inputs.size();
 }
 
-//Man beachte, dass diese Funktion fehlerhaft implementiert ist; Sie missachtet den numbers-parameter gänzlich. In den gegebenen Testfällen ist dies nicht relevant.
+// Eine klügere Lösung könnte sich wohl damit abfinden wenn die Inputs in zufälliger Reihenfolge gesetzt werden.
+// Aber der Programmierer der diesen Code nutzt kann sich auch einfach ein klein wenig Mühe geben, nicht grundlos zufällige Zahlen als Indizes zu verwenden.
 void AndBaustein::setInput(size_t number, std::shared_ptr<Schaltbaustein>  input) {
-    this->inputs.push_back( input );
+    if ( this->inputs.size() == number ) {
+        this->inputs.push_back( input );
+    } else if ( this->inputs.size() > number ) {
+        this->inputs.at( number ) = input;
+    } else {
+        throw std::out_of_range("Please initialize the inputs in order");
+    }
 }
 
-// Durch die Verwendung von .at() ist boundary-checking gratis enthalten, und wir müssen uns selbst nicht mehr die Mühe machen eine Exception zu werfen, wenn der Parameter außerhalb liegt.
+// Durch die Verwendung von .at() ist boundary-checking gratis enthalten
+// Wir müssen uns selbst nicht mehr die Mühe machen eine Exception zu werfen, wenn der Parameter außerhalb liegt.
 std::shared_ptr<Schaltbaustein> AndBaustein::getInput(size_t number) {
     return this->inputs.at(number);
 }
