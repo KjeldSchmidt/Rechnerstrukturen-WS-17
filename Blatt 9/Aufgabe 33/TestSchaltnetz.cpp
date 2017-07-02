@@ -16,9 +16,13 @@ int main() {
 	//Verbinde den x-Eingang des OR-Bausteins mit dem Ausgang des AND-Bausteins.
 	orGate->setInput(0, andGate );
 	//Verbinde den y-Eingang des OR-Bausteins mit dem y-Eingang des Schaltnetzes.
+	orGate->setInput(1, meinNetz.getInputY() );
 	//Verbinde den x-Eingang des AND-Bausteins mit dem x-Eingang des Schaltnetzes.
+	andGate->setInput(0, meinNetz.getInputX() );
 	//Verbinde den y-Eingang des AND-Bausteins mit dem y-Eingang des Schaltnetzes.
+	andGate->setInput(1, meinNetz.getInputY() );
 	//Verbinde des Ausgang des Schaltnetzes mit dem Ausgang des OR-Bausteins.
+	meinNetz.setOutput( orGate );
 	
 	
 
@@ -31,11 +35,12 @@ int main() {
 	std::cout << "(false,true ) -> " << meinNetz.eval(false,true) << 
 			   " (sollte true sein)" << std::endl; 
 	
-	/* 
-	  Erzeuge einen NOT-Baustein.
-	  Verbinde den Eingang des NOT-Bausteins mit dem Ausgang des OR-Bausteins.
-	  Verbinde des Ausgang des Schaltnetzes mit dem Ausgang des NOT-Bausteins.
-	*/
+	 
+	//Erzeuge einen NOT-Baustein.
+	std::shared_ptr<NotBaustein> notGate( new NotBaustein() );
+	//Verbinde den Eingang des NOT-Bausteins mit dem Ausgang des OR-Bausteins.
+	//Verbinde des Ausgang des Schaltnetzes mit dem Ausgang des NOT-Bausteins.
+	
 	
 	
 

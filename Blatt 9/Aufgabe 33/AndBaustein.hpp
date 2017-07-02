@@ -2,10 +2,12 @@
 #define ANDBAUSTEIN_H
 
 #include "Schaltbaustein.hpp"
+#include <vector>
 
 class AndBaustein : public Schaltbaustein {
     protected:
     private:
+        std::vector<std::shared_ptr<Schaltbaustein>> inputs;
     public:
         virtual bool eval();
         virtual size_t getInputSize() const;
