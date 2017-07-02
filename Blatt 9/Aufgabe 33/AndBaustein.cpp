@@ -1,4 +1,5 @@
 #include "AndBaustein.hpp"
+#include <iostream>
 
 AndBaustein::AndBaustein() {
 

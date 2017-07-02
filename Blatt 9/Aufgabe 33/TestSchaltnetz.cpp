@@ -1,6 +1,7 @@
 #include "AndBaustein.hpp"
 #include "OrBaustein.hpp"
 #include "NotBaustein.hpp"
+#include "Schalterbaustein.hpp"
 #include "Schaltnetz.hpp"
 #include <iostream>
 
@@ -39,7 +40,9 @@ int main() {
 	//Erzeuge einen NOT-Baustein.
 	std::shared_ptr<NotBaustein> notGate( new NotBaustein() );
 	//Verbinde den Eingang des NOT-Bausteins mit dem Ausgang des OR-Bausteins.
+	notGate->setInput( 0, orGate );
 	//Verbinde des Ausgang des Schaltnetzes mit dem Ausgang des NOT-Bausteins.
+	meinNetz.setOutput( notGate );
 	
 	
 	

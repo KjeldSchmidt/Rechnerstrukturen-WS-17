@@ -2,11 +2,12 @@
 #define SCHALTNETZ_H
 #include <memory>
 
-#include "Schalterbaustein.hpp"
 #include "Schaltbaustein.hpp"
+#include "Schalterbaustein.hpp"
 #include "OrBaustein.hpp"
 #include "AndBaustein.hpp"
 #include "NotBaustein.hpp"
+
 /**
  * Modellierung eines Schaltnetzes mit zwei Eingaengen (X und Y),
  * an denen jeweils Boolesche Werte anliegen koennen. Das Schaltnetz

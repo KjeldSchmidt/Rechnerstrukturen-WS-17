@@ -7,6 +7,14 @@
  * Verfuegt ueber keinen Eingang, Ausgabe kann nur umgeschaltet werden.
  */
 class Schalterbaustein : public Schaltbaustein {
-	//Bitte ergaenzen
+	private:
+		bool value;
+	public:
+		Schalterbaustein();
+		void setValue( bool value );
+		bool eval();
+		size_t getInputSize() const;
+		void setInput(size_t number,  std::shared_ptr<Schaltbaustein>  input);
+		std::shared_ptr<Schaltbaustein> getInput(size_t number);
 };
 #endif

@@ -9,10 +9,10 @@ class AndBaustein : public Schaltbaustein {
     private:
         std::vector<std::shared_ptr<Schaltbaustein>> inputs;
     public:
-        virtual bool eval();
-        virtual size_t getInputSize() const;
-        virtual void setInput(size_t number,  std::shared_ptr<Schaltbaustein>  input);
-        virtual std::shared_ptr<Schaltbaustein> getInput(size_t number);
+        bool eval();
+        size_t getInputSize() const;
+        void setInput(size_t number,  std::shared_ptr<Schaltbaustein>  input);
+        std::shared_ptr<Schaltbaustein> getInput(size_t number);
         AndBaustein();
 };
 #endif

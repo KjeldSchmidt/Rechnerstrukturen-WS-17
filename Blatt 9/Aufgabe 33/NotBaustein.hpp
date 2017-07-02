@@ -7,7 +7,7 @@
 class NotBaustein : public Schaltbaustein {
     protected:
     private:
-        std::vector<std::shared_ptr<Schaltbaustein>> inputs;
+        std::shared_ptr<Schaltbaustein> input;
     public:
         virtual bool eval();
         virtual size_t getInputSize() const;

@@ -1,4 +1,5 @@
 #include "OrBaustein.hpp"
+#include <iostream>
 
 OrBaustein::OrBaustein() {
 
@@ -6,11 +7,11 @@ OrBaustein::OrBaustein() {
 
 bool OrBaustein::eval() {
     for ( auto p = this->inputs.begin(); p != this->inputs.end(); ++p ) {
-        if ( !((*p)->eval()) ) {
-            return false;
+        if ( (*p)->eval() ) {
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 size_t OrBaustein::getInputSize() const {
