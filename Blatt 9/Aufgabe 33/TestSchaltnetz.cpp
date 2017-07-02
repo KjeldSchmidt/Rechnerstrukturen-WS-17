@@ -5,6 +5,11 @@
 #include "Schaltnetz.hpp"
 #include <iostream>
 
+/*
+ *	In dieser Datei wurden keine interessanten Designentscheidungen getroffen. 
+ *	Die geforderten codefunktionen wurden 1:1 aus den Kommentaren übertragen.
+ */
+
 int main() {
 
     Schaltnetz meinNetz = *(new Schaltnetz());
